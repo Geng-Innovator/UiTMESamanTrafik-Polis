@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    android:orientation="vertical"
+    tools:context="com.example.zaimfared.uitmereport_polis.LogMasuk">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:text="UiTM E-Laporan"
+        android:layout_marginBottom="50dp"/>
+
+    <EditText
+        android:id="@+id/edtNoPekerja"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="No Pekerja" />
+
+    <EditText
+        android:id="@+id/edtKataLaluan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Kata Laluan"
+        android:inputType="textPassword" />
+
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/btnLogMasuk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LOG MASUK" />
+
+</LinearLayout>

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">UiTMEReport-Polis</string>
+
+    <!-- GET url -->
+    <string name="url_form_maklum_balas">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/form/laporan/maklum-balas</string>
+
+    <!-- POST url -->
+    <string name="url_log_masuk">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/log-masuk</string>
+    <string name="url_reset_password">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/reset-password</string>
+    <string name="url_dashboard">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/dashboard</string>
+    <string name="url_info_laporan">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/laporan/info</string>
+    <string name="url_maklum_balas">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/laporan/maklum-balas</string>
+    <string name="url_profile">http://beta.seladanghijau.com/uitm_e_laporan/public/polis/profil</string>
+
+    <string name="title_activity_info_laporan_2">Info_laporan</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World</string>
+</resources>

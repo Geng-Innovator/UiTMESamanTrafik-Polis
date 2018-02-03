@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:gravity="center"
+    tools:context="com.example.zaimfared.uitmereport_polis.Daftar">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:text="UiTM E-Laporan"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/edtKataLaluanBaru"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Katalaluan baru" />
+
+    <EditText
+        android:id="@+id/edtKataLaluanBaru2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Konformasi katalaluan baru"
+        android:inputType="textPassword" />
+
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/btnDaftar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="DAFTAR" />
+
+</LinearLayout>
+
