@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -117,7 +118,8 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
                 //Clear shared preferences
                 SharedPreferences settings = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
                 settings.edit().clear().apply();
-                finish();
+                startActivity(new Intent(Profil.this, LogMasuk.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                //finish();
                 break;
         }
     }

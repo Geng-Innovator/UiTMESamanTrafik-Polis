@@ -67,8 +67,7 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
 
                                 //Redirect to dashboard
                                 Toast.makeText(Daftar.this, "Tukar katalaluan berjaya", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Daftar.this, Dashboard.class));
-                                finish();
+                                startActivity(new Intent(Daftar.this, Dashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             }else{
                                 //Redirect to log masuk
                                 Toast.makeText(Daftar.this, "Tukar katalaluan gagal", Toast.LENGTH_SHORT).show();
@@ -92,17 +91,20 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
                         if (validatePssword()) {
                             //Get intent data
                             String cur_pass = "";
+                            String polis_id = "";
 
                             if (getIntent().getExtras() != null) {
                                 id = getIntent().getIntExtra("id", 0);
+                                polis_id = String.valueOf(id);
                                 cur_pass = getIntent().getStringExtra("cur_pass");
                             }else{
                                 SharedPreferences sharedPreferences = getSharedPreferences("pekerjaPref", Context.MODE_PRIVATE);
+                                polis_id = sharedPreferences.getString("ID", "");
                                 cur_pass = sharedPreferences.getString("cur_pass", "");
                             }
 
                             params = new HashMap<>();
-                            params.put("polis_id", ""+id); //User id for query
+                            params.put("polis_id", polis_id); //User id for query
                             params.put("cur_pass", cur_pass); //default password
                             params.put("new_pass", edtKataLaluan.getText().toString().trim()); //user input password
                             return params;
