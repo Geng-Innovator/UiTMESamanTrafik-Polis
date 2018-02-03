@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context="com.example.zaimfared.uitmereport_polis.LogMasuk">
 
     <TextView
@@ -16,29 +17,44 @@
         android:textStyle="bold"
         android:textSize="40sp"
         android:text="UiTM E-Laporan"
+        android:textColor="@color/colorSecondary"
         android:layout_marginBottom="50dp"/>
 
     <EditText
         android:id="@+id/edtNoPekerja"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="No Pekerja" />
+        android:hint="No Pekerja"
+        android:gravity="center"
+        android:background="@drawable/bg_edittext"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/colorSecondary"/>
 
     <EditText
         android:id="@+id/edtKataLaluan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:hint="Kata Laluan"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:background="@drawable/bg_edittext"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/colorSecondary"/>
 
     <Button
         android:onClick="onClick"
         android:id="@+id/btnLogMasuk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOG MASUK" />
+        android:layout_marginTop="20dp"
+        android:text="LOG MASUK"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/colorPrimary" />
 
 </LinearLayout>

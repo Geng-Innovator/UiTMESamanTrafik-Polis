@@ -2,7 +2,8 @@
 <android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,29 +23,49 @@
             <TextView
                 android:text="Polis ID : "
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:textColor="@color/colorSecondary" />
             <TextView
                 android:id="@+id/viewLaporanPolisId"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-        <TextView
-            android:text="Penerangan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/viewLaporanPolisPenerangan"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:text="Kesalahan "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/viewLaporanPolisKesalahan"
+            <TextView
+                android:text="Penerangan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary"/>
+            <TextView
+                android:id="@+id/viewLaporanPolisPenerangan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Kesalahan "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary"/>
+            <TextView
+                android:id="@+id/viewLaporanPolisKesalahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

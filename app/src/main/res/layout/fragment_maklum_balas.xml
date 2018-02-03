@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:orientation="vertical"
@@ -26,7 +27,8 @@
             <TextView
                 android:text="Tindakan : "
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorSecondary" />
 
             <Spinner
                 android:id="@+id/maklum_laporan_tindakan_spinner"
@@ -44,52 +46,52 @@
             android:layout_marginRight="10dp"
             android:text="Kesalahan"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorSecondary" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/maklum_laporan_kesalahan"
             android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
 
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/maklum_laporan_penerangan"
+            android:inputType="textMultiLine"
+            android:hint="Penerangan Laporan"
+            android:padding="20dp"
+            android:textColorHint="@color/colorSecondary"
+            android:background="@drawable/bg_edittext"/>
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/maklum_laporan_penerangan"
-                android:inputType="textMultiLine"
-                android:hint="Penerangan Laporan" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:id="@+id/maklum_laporan_no_pelajar"
+            android:inputType="number"
+            android:hint="No Pelajar"
+            android:padding="10dp"
+            android:textColorHint="@color/colorSecondary"
+            android:background="@drawable/bg_edittext" />
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/maklum_laporan_no_pelajar"
-                android:inputType="number"
-                android:hint="No Pelajar" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/maklum_laporan_nama_pelajar"
-                android:inputType="textMultiLine"
-                android:hint="Nama Pelajar" />
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/maklum_laporan_nama_pelajar"
+            android:inputType="textMultiLine"
+            android:hint="Nama Pelajar"
+            android:padding="10dp"
+            android:textColorHint="@color/colorSecondary"
+            android:background="@drawable/bg_edittext" />
 
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -97,7 +99,8 @@
             <TextView
                 android:text="Kursus : "
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorSecondary"/>
 
             <Spinner
                 android:id="@+id/maklum_laporan_kursus_spinner"
@@ -106,7 +109,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -114,7 +117,8 @@
             <TextView
                 android:text="Kolej : "
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorSecondary"/>
 
             <Spinner
                 android:id="@+id/maklum_laporan_kolej_spinner"
@@ -123,6 +127,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -130,7 +135,8 @@
             <TextView
                 android:text="Fakulti : "
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorSecondary" />
 
             <Spinner
                 android:spinnerMode="dropdown"
@@ -149,11 +155,13 @@
             android:layout_marginRight="10dp"
             android:text="HANTAR LAPORAN BALAS"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/colorPrimary"/>
         <Button
             android:id="@+id/btnMaklumKembali"
             android:onClick="onClick"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -161,6 +169,8 @@
             android:layout_marginRight="10dp"
             android:text="KEMBALI"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

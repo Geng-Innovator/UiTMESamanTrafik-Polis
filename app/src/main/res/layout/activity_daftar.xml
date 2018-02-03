@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:padding="30dp"
     android:gravity="center"
+    android:background="@color/colorPrimary"
     tools:context="com.example.zaimfared.uitmereport_polis.Daftar">
 
     <TextView
@@ -15,6 +16,7 @@
         android:textStyle="bold"
         android:textSize="40sp"
         android:text="UiTM E-Laporan"
+        android:textColor="@color/colorSecondary"
         android:layout_marginBottom="30dp"/>
 
     <EditText
@@ -23,7 +25,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Katalaluan baru" />
+        android:hint="Katalaluan baru"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@drawable/bg_edittext"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/colorSecondary"/>
 
     <EditText
         android:id="@+id/edtKataLaluanBaru2"
@@ -31,15 +38,23 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Konformasi katalaluan baru"
-        android:inputType="textPassword" />
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:background="@drawable/bg_edittext"
+        android:textColor="@color/colorSecondary"
+        android:textColorHint="@color/colorSecondary" />
 
     <Button
         android:onClick="onClick"
         android:id="@+id/btnDaftar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="TUKAR KATA LALUAN" />
+        android:layout_marginTop="20dp"
+        android:text="TUKAR KATA LALUAN"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/colorPrimary"/>
 
 </LinearLayout>
 

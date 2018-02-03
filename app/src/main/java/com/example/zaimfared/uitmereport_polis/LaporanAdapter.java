@@ -74,12 +74,17 @@ public class LaporanAdapter extends RecyclerView.Adapter<LaporanAdapter.MyViewHo
         holder.txtMasa.setText(laporan.getLaporan_masa());
         holder.txtStatus.setText(laporan.getLaporan_status());
 
-        if (laporan.getLaporan_status().equals("DIJADUALKAN"))
-            holder.txtStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorOrange));
-        else if (laporan.getLaporan_status().equals("DILAPORKAN"))
-            holder.txtStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorGreen));
-        else
-            holder.txtStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.colorRed));
+        switch(laporan.getLaporan_status()) {
+            case "DILAPORKAN":
+                holder.txtStatus.setBackground(context.getResources().getDrawable(R.drawable.statuslaporan_dilaporkan));
+                break;
+            case "DIJADUALKAN":
+                holder.txtStatus.setBackground(context.getResources().getDrawable(R.drawable.statuslaporan_dijadualkan));
+                break;
+            case "DIKUATKUASAKAN":
+                holder.txtStatus.setBackground(context.getResources().getDrawable(R.drawable.statuslaporan_dikuatkuasakan));
+                break;
+        }
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

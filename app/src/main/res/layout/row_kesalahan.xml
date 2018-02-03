@@ -15,5 +15,7 @@
         android:text="Kesalahan"
         android:id="@+id/txtRowKesalahan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorSecondary"
+        android:textStyle="bold"/>
 </LinearLayout>

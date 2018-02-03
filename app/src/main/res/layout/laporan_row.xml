@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary">
 
             <ImageView
                 android:id="@+id/imgLaporan"
@@ -38,6 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="FSKM"
+                    android:textColor="@color/colorSecondary"
                     android:textStyle="bold"/>
 
                 <LinearLayout
@@ -49,18 +52,23 @@
                         android:id="@+id/laporan_tarikh"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="11/11/2017" />
+                        android:text="11/11/2017"
+                        android:textColor="@color/colorSecondary"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" : " />
+                        android:text=" : "
+                        android:textStyle="bold"
+                        android:textColor="@color/colorSecondary"/>
 
                     <TextView
                         android:id="@+id/laporan_masa"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1300" />
+                        android:text="1300"
+                        android:textColor="@color/colorSecondary"/>
 
                 </LinearLayout>
 
@@ -71,7 +79,8 @@
                     android:text="DIJADUALKAN"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColor="@color/colorWhite"/>
+                    android:textColor="@color/colorWhite"
+                    android:background="@drawable/statuslaporan_dilaporkan"/>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

@@ -6,146 +6,173 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context="com.example.zaimfared.uitmereport_polis.Profil">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" No. Pekerja :" />
+            android:text=" No. Pekerja :"
+            android:textColor="@color/colorSecondary"/>
 
         <TextView
             android:id="@+id/txtNoPekerjaProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="83244023" />
+            android:text="83244023"
+            android:textColor="@color/colorSecondary"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" No. IC :" />
+            android:text=" No. IC :"
+            android:textColor="@color/colorSecondary"/>
 
         <TextView
             android:id="@+id/txtNoICProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="951203115195" />
+            android:text="951203115195"
+            android:textStyle="bold"
+            android:textColor="@color/colorSecondary"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" No. Tel. HP :" />
+            android:text=" No. Tel. HP :"
+            android:textColor="@color/colorSecondary"/>
 
         <TextView
             android:id="@+id/txtNoHPProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="0194192130" />
+            android:text="0194192130"
+            android:textStyle="bold"
+            android:textColor="@color/colorSecondary"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" No. Tel. Pejabat :" />
+            android:text=" No. Tel. Pejabat :"
+            android:textColor="@color/colorSecondary"/>
 
         <TextView
             android:id="@+id/txtNoPejabatProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="096958931" />
+            android:text="096958931"
+            android:textStyle="bold"
+            android:textColor="@color/colorSecondary"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Jawatan  :" />
+            android:text="Jawatan  :"
+            android:textColor="@color/colorSecondary"/>
 
         <TextView
             android:id="@+id/txtJawatanProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sarjan" />
+            android:text="Sarjan"
+            android:textStyle="bold"
+            android:textColor="@color/colorSecondary"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pos  :" />
+            android:text="Pos  :"
+            android:textColor="@color/colorSecondary"/>
 
         <TextView
             android:id="@+id/txtPosProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=" Gate 1" />
+            android:text=" Gate 1"
+            android:textStyle="bold"
+            android:textColor="@color/colorSecondary"/>
     </LinearLayout>
-
-    <!--
-    <Button
-        android:onClick="onClick"
-        android:id="@+id/btnUbahProfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="UBAH PROFIL" />-->
 
     <Button
         android:onClick="onClick"
         android:id="@+id/btnUbahKataLaluan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="UBAH KATA LALUAN" />
+        android:text="UBAH KATA LALUAN"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/bg_button"/>
 
     <Button
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:onClick="onClick"
         android:id="@+id/btnLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Log Keluar" />
+        android:text="Log Keluar"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/bg_button" />
 
     <Button
+        android:layout_marginTop="10dp"
         android:onClick="onClick"
         android:id="@+id/btnKembali"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="KEMBALI" />
+        android:text="KEMBALI"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/bg_button" />
 </LinearLayout>
