@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UiTMEReport-Polis.iml" filepath="$PROJECT_DIR$/UiTMEReport-Polis.iml" />
+      <module fileurl="file://E:\FYPApps\UiTMEReportPolis\UiTMEReport-Polis.iml" filepath="E:\FYPApps\UiTMEReportPolis\UiTMEReport-Polis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UiTMEReportPolis.iml" filepath="$PROJECT_DIR$/UiTMEReportPolis.iml" />
       <module fileurl="file://C:\Users\Seladang Hijau\Desktop\UiTMEReport-Polis\UiTMEReportPolis.iml" filepath="C:\Users\Seladang Hijau\Desktop\UiTMEReport-Polis\UiTMEReportPolis.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
