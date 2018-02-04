@@ -60,18 +60,24 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
                             //Get status from the server. 0 - Failed, 1 - Success
                             if (obj.getString("status").equalsIgnoreCase("1")){
                                 //Insert into shared preferences
+                                if (getIntent().getExtras() != null) {
+                                    id = getIntent().getIntExtra("id", 0);
+                                }else{
+                                    id = Integer.parseInt(sharedPreferences.getString("ID", ""));
+                                }
+
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString(LogMasuk.id, ""+id);
-                                editor.putString("cur_pass", ((EditText)findViewById(R.id.edtKataLaluanBaru)).getText().toString().trim());
-                                editor.commit();
+                                editor.putString("ID", ""+id);
+                                editor.putString("cur_pass", edtKataLaluan.getText().toString().trim());
+                                editor.apply();
 
                                 //Redirect to dashboard
                                 Toast.makeText(Daftar.this, "Tukar katalaluan berjaya", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Daftar.this, Dashboard.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                                startActivity(new Intent(Daftar.this, Dashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                             }else{
                                 //Redirect to log masuk
                                 Toast.makeText(Daftar.this, "Tukar katalaluan gagal", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Daftar.this, LogMasuk.class));
+                                //startActivity(new Intent(Daftar.this, LogMasuk.class));
                                 finish();
                             }
 
@@ -90,8 +96,8 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
                         Map<String, String> params;
                         if (validatePssword()) {
                             //Get intent data
-                            String cur_pass = "";
-                            String polis_id = "";
+                            String cur_pass;
+                            String polis_id;
 
                             if (getIntent().getExtras() != null) {
                                 id = getIntent().getIntExtra("id", 0);
