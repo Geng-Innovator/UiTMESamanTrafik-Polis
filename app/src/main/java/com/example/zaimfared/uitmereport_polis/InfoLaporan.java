@@ -263,12 +263,16 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                         ((TextView)v.findViewById(R.id.info_laporan_jenis_kenderaan)).setText(laporanJenis);
                         ((TextView)v.findViewById(R.id.info_laporan_penerangan_staf)).setText(laporanPenerangan);
 
-                        if (laporanStatus.equalsIgnoreCase("dijadualkan")){
-                            (v.findViewById(R.id.info_laporan_status)).setBackgroundResource(R.color.colorOrange);
-                        }else if (laporanStatus.equalsIgnoreCase("dilaporkan")){
-                            (v.findViewById(R.id.info_laporan_status)).setBackgroundResource(R.color.colorGreen);
-                        }else{
-                            (v.findViewById(R.id.info_laporan_status)).setBackgroundResource(R.color.colorRed);
+                        switch(laporanStatus) {
+                            case "DILAPORKAN":
+                                (v.findViewById(R.id.info_laporan_status)).setBackground(context.getResources().getDrawable(R.drawable.statuslaporan_dilaporkan));
+                                break;
+                            case "DIJADUALKAN":
+                                (v.findViewById(R.id.info_laporan_status)).setBackground(context.getResources().getDrawable(R.drawable.statuslaporan_dijadualkan));
+                                break;
+                            case "DIKUATKUASAKAN":
+                                (v.findViewById(R.id.info_laporan_status)).setBackground(context.getResources().getDrawable(R.drawable.statuslaporan_dikuatkuasakan));
+                                break;
                         }
 
                         /***************** Part untuk view laporan                            *********/
@@ -372,7 +376,10 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                     }
                 }
 
-                hantarMaklumBalas(v);
+                if(img != null)
+                    hantarMaklumBalas(v);
+                else
+                    Toast.makeText(context, "Sila tangkap gambar dahulu.", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -393,7 +400,7 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                         Toast.makeText(context, "Laporan telah berjaya dimuat naik", Toast.LENGTH_SHORT).show();
                         info.finish();
                     }else{
-                        Toast.makeText(context, "Laporan tidak dijumpai", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Laporan tidak dijumpai 2", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

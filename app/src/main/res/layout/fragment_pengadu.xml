@@ -28,12 +28,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondary"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textSize="15pt"/>
 
             <TextView
                 android:id="@+id/info_laporan_status"
-                android:padding="6dp"
+                android:padding="10dp"
                 android:textStyle="bold"
+                android:textSize="10pt"
                 android:background="@drawable/statuslaporan_dilaporkan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,12 +61,14 @@
 
                 <TextView
                     android:text="ID Laporan : "
+                    android:textSize="9pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondary"/>
 
                 <TextView
                     android:id="@+id/info_laporan_id"
+                    android:textSize="9pt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondary"
@@ -85,12 +89,14 @@
                     android:text="Tarikh : "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="9pt"
                     android:textColor="@color/colorSecondary" />
 
                 <TextView
                     android:id="@+id/info_laporan_tarikh"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="9pt"
                     android:textColor="@color/colorSecondary"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -108,12 +114,14 @@
                 <TextView
                     android:text="Masa : "
                     android:layout_width="wrap_content"
+                    android:textSize="9pt"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondary" />
 
                 <TextView
                     android:id="@+id/info_laporan_masa"
                     android:layout_width="wrap_content"
+                    android:textSize="9pt"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondary"
                     android:textStyle="bold" />
@@ -133,11 +141,13 @@
                     android:text="Tempat : "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="9pt"
                     android:textColor="@color/colorSecondary" />
 
                 <TextView
                     android:id="@+id/info_laporan_tempat"
                     android:layout_width="wrap_content"
+                    android:textSize="9pt"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorSecondary"
                     android:textStyle="bold" />
@@ -159,11 +169,13 @@
                 android:text="No Kenderaan : "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="9pt"
                 android:textColor="@color/colorSecondary" />
 
             <TextView
                 android:id="@+id/info_laporan_no_kenderaan"
                 android:layout_width="wrap_content"
+                android:textSize="9pt"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondary"
                 android:textStyle="bold" />
@@ -181,6 +193,7 @@
 
             <TextView
                 android:text="No Siri Pelekat : "
+                android:textSize="9pt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondary" />
@@ -189,6 +202,7 @@
                 android:id="@+id/info_laporan_no_siri_pelekat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="9pt"
                 android:textColor="@color/colorSecondary"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -206,6 +220,7 @@
             <TextView
                 android:text="Jenis Kenderaan : "
                 android:layout_width="wrap_content"
+                android:textSize="9pt"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondary" />
 
@@ -213,6 +228,7 @@
                 android:id="@+id/info_laporan_jenis_kenderaan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="9pt"
                 android:textColor="@color/colorSecondary"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -231,6 +247,7 @@
             <TextView
                 android:text="Penerangan staf : "
                 android:layout_width="wrap_content"
+                android:textSize="9pt"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorSecondary" />
 
@@ -238,6 +255,7 @@
                 android:id="@+id/info_laporan_penerangan_staf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="9pt"
                 android:textColor="@color/colorSecondary"
                 android:textStyle="bold" />
         </LinearLayout>
