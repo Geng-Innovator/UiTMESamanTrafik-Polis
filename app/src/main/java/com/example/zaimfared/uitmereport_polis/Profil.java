@@ -132,13 +132,17 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
                 settings.edit().clear().apply();
 
                 AlertDialog alertDialog = new AlertDialog.Builder(Profil.this)
-                        .setMessage("Anda telah log keluar")
+                        .setMessage("Anda pasti ingin log keluar?")
                         .setCancelable(false)
-                        .setPositiveButton("TERUSKAN", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("YA", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 startActivity(new Intent(Profil.this, LogMasuk.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             }
+                        })
+                        .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {}
                         })
                         .create();
                 alertDialog.show();

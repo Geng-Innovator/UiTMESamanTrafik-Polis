@@ -3,6 +3,7 @@ package com.example.zaimfared.uitmereport_polis;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -76,14 +77,20 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
 
                                 //Redirect to dashboard
                                 AlertDialog alertDialog = new AlertDialog.Builder(Daftar.this)
-                                        .setMessage("Tukar katalaluan berjaya")
+                                        .setMessage("Penukaran katalaluan berjaya")
+                                        .setCancelable(false)
+                                        .setPositiveButton("TERUSKAN", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                startActivity(new Intent(Daftar.this, Dashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                            }
+                                        })
                                         .create();
                                 alertDialog.show();
-                                startActivity(new Intent(Daftar.this, Dashboard.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                             }else{
                                 //Redirect to log masuk
                                 AlertDialog alertDialog = new AlertDialog.Builder(Daftar.this)
-                                        .setMessage("Tukar katalaluan gagal")
+                                        .setMessage("Penukaran katalaluan gagal")
                                         .create();
                                 alertDialog.show();
                                 //startActivity(new Intent(Daftar.this, LogMasuk.class));
@@ -98,7 +105,7 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         AlertDialog alertDialog = new AlertDialog.Builder(Daftar.this)
-                                .setMessage("Tukar katalaluan anda ralat")
+                                .setMessage("Penukaran katalaluan anda ralat")
                                 .create();
                         alertDialog.show();
 
