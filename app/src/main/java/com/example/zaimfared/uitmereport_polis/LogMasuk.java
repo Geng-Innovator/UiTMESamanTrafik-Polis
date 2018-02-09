@@ -129,6 +129,9 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
                                 .setMessage("Log Masuk gagal")
                                 .create();
                         alertDialog.show();
+
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }
                 }){
                     @Override
