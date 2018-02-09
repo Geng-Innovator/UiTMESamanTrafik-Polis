@@ -1,6 +1,8 @@
 package com.example.zaimfared.uitmereport_polis;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,6 +78,7 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
         if (v.getId() == R.id.btnLogMasuk){
 
             try{
+                final ProgressDialog pDialog = new ProgressDialog(LogMasuk.this);
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 String url = getResources().getString(R.string.url_log_masuk);
                 StringRequest loginRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -108,17 +111,24 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
                                 }
                             }else{
                                 //Redirect to log masuk
-                                Toast.makeText(LogMasuk.this, "Log Masuk gagal", Toast.LENGTH_SHORT).show();
+                                AlertDialog alertDialog = new AlertDialog.Builder(LogMasuk.this)
+                                        .setMessage("Log Masuk gagal")
+                                        .create();
+                                alertDialog.show();
                             }
 
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
+                        }catch (Exception e){ e.printStackTrace(); }
+
+                        if(pDialog.isShowing())
+                            pDialog.dismiss();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Log Masuk gagal", Toast.LENGTH_SHORT).show();
+                        AlertDialog alertDialog = new AlertDialog.Builder(LogMasuk.this)
+                                .setMessage("Log Masuk gagal")
+                                .create();
+                        alertDialog.show();
                     }
                 }){
                     @Override
@@ -134,9 +144,15 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
                 };
 
                 requestQueue.add(loginRequest);
-
+                pDialog.setMessage("Sedang log masuk...");
+                pDialog.setCancelable(false);
+                pDialog.show();
             }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Terdapat masalah dengan rangkaian internet anda", Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(LogMasuk.this)
+                        .setMessage("Terdapat masalah dengan rangkaian internet anda")
+                        .create();
+                alertDialog.show();
+
                 e.printStackTrace();
             }
         }

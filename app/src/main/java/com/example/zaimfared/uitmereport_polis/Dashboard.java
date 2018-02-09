@@ -1,5 +1,7 @@
 package com.example.zaimfared.uitmereport_polis;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,8 +59,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     }
 
     private void prepareLaporan(){
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        final ProgressDialog pDialog = new ProgressDialog(Dashboard.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Dashboard.this);
         StringRequest laporanRequest = new StringRequest(Request.Method.POST, getResources().getString(R.string.url_dashboard), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -84,18 +86,26 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                             laporanAdapter.notifyDataSetChanged();
                         }
                     }else{
-                        //Try again
-                        Toast.makeText(Dashboard.this, "Gagal mengakses internet anda", Toast.LENGTH_SHORT).show();
+                        AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
+                                .setMessage("Gagal mengakses internet anda")
+                                .create();
+                        alertDialog.show();
                     }
+                }catch (Exception e){ e.printStackTrace(); }
 
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Dashboard.this, "Gagal mengakses internet anda", Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
+                        .setMessage("Gagal mengakses internet anda")
+                        .create();
+                alertDialog.show();
+
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         }){
             @Override
@@ -105,7 +115,11 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 return params;
             }
         };
+
         requestQueue.add(laporanRequest);
+        pDialog.setMessage("Sedang memuat turun data...");
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 
     @Override

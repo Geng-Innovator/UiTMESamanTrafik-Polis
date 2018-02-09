@@ -1,6 +1,9 @@
 package com.example.zaimfared.uitmereport_polis;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -50,6 +53,7 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
 
     private void setProfil(){
         try{
+            final ProgressDialog pDialog = new ProgressDialog(Profil.this);
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             String url = getResources().getString(R.string.url_profile);
             StringRequest profileRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -70,17 +74,24 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
                             ((TextView)findViewById(R.id.txtPosProfil)).setText(data.getString("pos"));
                         }else{
                             //Redirect to log masuk
-                            Toast.makeText(Profil.this, "Profil tidak dijumpai", Toast.LENGTH_SHORT).show();
+                            AlertDialog alertDialog = new AlertDialog.Builder(Profil.this)
+                                    .setMessage("Profil tidak dijumpai")
+                                    .create();
+                            alertDialog.show();
                         }
 
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+                    }catch (Exception e){ e.printStackTrace(); }
+
+                    if(pDialog.isShowing())
+                        pDialog.dismiss();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "Profil tidak dijumpai", Toast.LENGTH_SHORT).show();
+                    AlertDialog alertDialog = new AlertDialog.Builder(Profil.this)
+                            .setMessage("Profil tidak dijumpai")
+                            .create();
+                    alertDialog.show();
                 }
             }){
                 @Override
@@ -93,16 +104,17 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
             };
 
             requestQueue.add(profileRequest);
-
+            pDialog.setMessage("Sedang memuat turun data...");
+            pDialog.setCancelable(false);
+            pDialog.show();
         }catch (Exception e){
-            Toast.makeText(Profil.this, "Terdapat masalah dengan rangkaian internet anda", Toast.LENGTH_SHORT).show();
+            AlertDialog alertDialog = new AlertDialog.Builder(Profil.this)
+                    .setMessage("Terdapat masalah dengan rangkaian internet anda")
+                    .create();
+            alertDialog.show();
+
             e.printStackTrace();
         }
-    }
-
-    public Bitmap decodeBase64(String input){
-        byte[] decodeBytes = Base64.decode(input, 0);
-        return BitmapFactory.decodeByteArray(decodeBytes, 0, decodeBytes.length);
     }
 
     @Override
@@ -118,8 +130,18 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
                 //Clear shared preferences
                 SharedPreferences settings = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
                 settings.edit().clear().apply();
-                startActivity(new Intent(Profil.this, LogMasuk.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                //finish();
+
+                AlertDialog alertDialog = new AlertDialog.Builder(Profil.this)
+                        .setMessage("Anda telah log keluar")
+                        .setCancelable(false)
+                        .setPositiveButton("TERUSKAN", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(Profil.this, LogMasuk.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                            }
+                        })
+                        .create();
+                alertDialog.show();
                 break;
         }
     }

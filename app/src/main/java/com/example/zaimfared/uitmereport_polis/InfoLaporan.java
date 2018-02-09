@@ -1,6 +1,8 @@
 package com.example.zaimfared.uitmereport_polis;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -228,6 +230,7 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
 
     //Fetch laporan pengadu dgn maklum balas
     private static void fetchLaporan(final int id, final View v){
+        final ProgressDialog pDialog = new ProgressDialog(context);
         String url = context.getResources().getString(R.string.url_info_laporan); //Url info_laporan
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest laporanRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -275,7 +278,7 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                                 break;
                         }
 
-                        /***************** Part untuk view laporan                            *********/
+                        /***************** Part untuk view laporan *********/
                         if (!status.equalsIgnoreCase("dijadualkan")) {
                             new DownloadImageTask((ImageView) vl.findViewById(R.id.viewLaporanImage)).execute(data.getString("polis_imej"));
                             ((TextView)vl.findViewById(R.id.viewLaporanPolisId)).setText(data.getString("polis_id"));
@@ -288,16 +291,26 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                             ((TextView)vl.findViewById(R.id.viewLaporanPolisKesalahan)).setText(kesalahan);
                         }
                     }else{
-                        Toast.makeText(context, "Laporan tidak dijumpai", Toast.LENGTH_SHORT).show();
+                        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                                .setMessage("Laporan tidak dijumpai")
+                                .create();
+                        alertDialog.show();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                } catch (Exception e) { e.printStackTrace(); }
+
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Laporan tidak dijumpai", Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(context)
+                        .setMessage("Laporan tidak dijumpai")
+                        .create();
+                alertDialog.show();
+
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         }){
             @Override
@@ -309,6 +322,9 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         };
 
         requestQueue.add(laporanRequest);
+        pDialog.setMessage("Maklum balas laporan sedang dimuat naik...");
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 
     private static void maklumBalas(final View v){
@@ -354,7 +370,6 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
 
             @SuppressLint("ClickableViewAccessibility")
             public boolean onTouch(View v, MotionEvent event) {
-
                 v.getParent().requestDisallowInterceptTouchEvent(true);
                 switch (event.getAction() & MotionEvent.ACTION_MASK){
                     case MotionEvent.ACTION_UP:
@@ -385,6 +400,7 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
     }
 
     private static void hantarMaklumBalas(final View v){
+        final ProgressDialog progressDialog = new ProgressDialog(context);
         String url = context.getResources().getString(R.string.url_maklum_balas); //Url info_laporan
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         StringRequest maklumRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -397,19 +413,31 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
 
                     if (obj.getString("status").equalsIgnoreCase("1")) {
                         JSONObject data = obj.getJSONObject("data");
-                        Toast.makeText(context, "Laporan telah berjaya dimuat naik", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                                .setMessage("Laporan telah berjaya dimuat naik")
+                                .create();
+                        alertDialog.show();
+
                         info.finish();
                     }else{
-                        Toast.makeText(context, "Laporan tidak dijumpai 2", Toast.LENGTH_SHORT).show();
+                        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                                .setMessage("Laporan tidak dijumpai 2")
+                                .create();
+                        alertDialog.show();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                } catch (JSONException e) { e.printStackTrace(); }
+
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, "Laporan tidak dijumpai", Toast.LENGTH_SHORT).show();
+                AlertDialog alertDialog = new AlertDialog.Builder(context)
+                        .setMessage("Laporan tidak dijumpai")
+                        .create();
+                alertDialog.show();
             }
         }){
             @Override
@@ -446,7 +474,10 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         };
 
         requestQueue.add(maklumRequest);
+        progressDialog.setMessage("Sedang memuat turun data...");
+        progressDialog.show();
     }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
