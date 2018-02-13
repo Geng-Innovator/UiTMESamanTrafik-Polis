@@ -1,6 +1,7 @@
 package com.example.zaimfared.uitmereport_polis;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,7 +10,9 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +48,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tooltip.Tooltip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +60,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class InfoLaporan extends AppCompatActivity implements View.OnClickListener {
 
@@ -79,6 +85,12 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
     private static ImageView imgViewPolis;
     private static String laporanImej, laporanStatus, laporanId, laporanTarikh, laporanMasa, laporanTempat, laporanNoKenderaan, laporanNoSiri, laporanJenis, laporanPenerangan;
     private static View vl;
+    public static final String pekerjaPrefs = "pekerjaPref";
+    private static SharedPreferences sharedPreferences;
+    @SuppressLint("StaticFieldLeak")
+    private static View pageView, pageView2, pageView3;
+    private static int pageNumber;
+    private static FragmentActivity fragmentActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +121,45 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         // Set up the ViewPager with the sections adapter.
         ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+            public void onPageSelected(int position) {
+                // Check if this is the page you want.
+                switch (position){
+                    case 0 :
+                        break;
+                    case 1 :
+
+                        if (pageNumber == 2) {
+                            if (sharedPreferences.getString("checkMaklum", "").isEmpty()){
+                                showToolTipMaklumBalas(0, pageView2, fragmentActivity);
+
+                                //Apply Editor
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("checkMaklum", "ada");
+                                editor.apply();
+                            }
+
+                        }else{
+                            if (sharedPreferences.getString("checkView", "").isEmpty()){
+                                showToolTipViewMaklumBalas(0, pageView3, fragmentActivity);
+
+                                //Apply Editor
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("checkView", "ada");
+                                editor.apply();
+                            }
+                        }
+                        break;
+                }
+            }
+        });
+        sharedPreferences = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
     }
 
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
@@ -523,18 +572,26 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        img = encodeToBase64(bitmap);
-        imgViewPolis.setImageBitmap(bitmap);
+
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            if (data.getExtras() != null){
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                img = encodeToBase64(bitmap);
+                imgViewPolis.setImageBitmap(bitmap);
+                pageView2.findViewById(R.id.txtSentuh).setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static String encodeToBase64(Bitmap image){
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
     }
 
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static Bitmap decodeBase64(String input){
         byte[] decodeBytes = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodeBytes, 0, decodeBytes.length);
@@ -590,21 +647,37 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            fragmentActivity = getActivity();
             View rootView = null;
 
             switch (getArguments().getInt(ARG_SECTION_NUMBER)){
                 case 1 :
                     rootView = inflater.inflate(R.layout.fragment_pengadu, container, false);
                     laporanPengadu(rootView);
+                    pageView = rootView;
+
+                    if (sharedPreferences.getString("checkPengadu", "").isEmpty()){
+                        showToolTipPengadu(0, pageView, fragmentActivity);
+
+                        //Apply Editor
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("checkPengadu", "ada");
+                        editor.apply();
+                    }
+
                     break;
                 case 2 :
-
                     if (status.equalsIgnoreCase("dijadualkan")) {
                         rootView = inflater.inflate(R.layout.fragment_maklum_balas, container, false);
                         maklumBalas(rootView);
+                        pageView2.findViewById(R.id.txtSentuh).setVisibility(View.INVISIBLE);
+                        pageView2 = rootView;
+                        pageNumber = 2;
                     }else{
                         rootView = inflater.inflate(R.layout.fragment_view_laporan, container, false);
                         vl = rootView;
+                        pageView3 = rootView;
+                        pageNumber = 3;
                     }
                     break;
                 default:
@@ -612,5 +685,105 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
             }
             return rootView;
         }
+    }
+
+
+    public static void showToolTipPengadu(final int i, final View v, final FragmentActivity activity){
+        Tooltip tooltip;
+        switch (i){
+            case 0:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.info_laporan_img), R.style.Tooltip).setText("GAMBAR LAPORAN OLEH STAF").show();
+                break;
+            case 1:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.info_laporan_status), R.style.Tooltip).setText("STATUS LAPORAN").show();
+                break;
+            case 2:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.info_laporan_no_kenderaan), R.style.Tooltip).setText("INFO LAPORAN YANG DISERTAKAN OLEH STAF").show();
+                break;
+            default:
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("checkInfo", "ada");
+                //editor.apply();
+                return;
+        }
+        Timer t = new Timer(false);
+        final Tooltip finalTooltip = tooltip;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finalTooltip.dismiss();
+                        int j = i + 1;
+                        showToolTipPengadu(j, v, activity);
+                    }
+                });
+            }
+        }, 4000);
+    }
+
+    public static void showToolTipMaklumBalas(final int i, final View v, final FragmentActivity activity){
+        Tooltip tooltip;
+        switch (i){
+            case 0:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.maklum_laporan_img), R.style.Tooltip).setText("DISINI MERUPAKAN BAHAGIAN UNTUK MENGAMBIL GAMBAR LAPORAN MAKLUM-BALAS. ANDA PERLU MENUNJUKKAN BUKTI PENGUATKUASAAN ANDA DENGAN GAMBAR").show();
+                break;
+            case 1:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.maklum_laporan_kesalahan), R.style.Tooltip).setText("DISINI ADALAH BAHAGIAN DIMANA SEMUA MAKLUMAT BERKENAAN LAPORAN MAKLUM-BALAS PERLU DISERTAKAN").show();
+                break;
+            default:
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("checkInfo", "ada");
+                //editor.apply();
+                return;
+        }
+        Timer t = new Timer(false);
+        final Tooltip finalTooltip = tooltip;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finalTooltip.dismiss();
+                        int j = i + 1;
+                        showToolTipMaklumBalas(j, v, activity);
+                    }
+                });
+            }
+        }, 4000);
+    }
+
+    public static void showToolTipViewMaklumBalas(final int i, final View v, final FragmentActivity activity){
+        Tooltip tooltip;
+        switch (i){
+            case 0:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.viewLaporanImage), R.style.Tooltip).setText("GAMBAR LAPORAN MAKLUM BALAS").show();
+                break;
+            case 1:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.viewLaporanPolisPenerangan), R.style.Tooltip).setText("PENERANGAN TAMBAHAN").show();
+                break;
+            case 2:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.viewLaporanPolisKesalahan), R.style.Tooltip).setText("SENARAI KESALAHAN YANG TELAH DILAPORAN").show();
+                break;
+            default:
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("checkInfo", "ada");
+                //editor.apply();
+                return;
+        }
+        Timer t = new Timer(false);
+        final Tooltip finalTooltip = tooltip;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        finalTooltip.dismiss();
+                        int j = i + 1;
+                        showToolTipViewMaklumBalas(j, v, activity);
+                    }
+                });
+            }
+        }, 4000);
     }
 }

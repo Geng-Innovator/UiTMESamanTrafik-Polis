@@ -23,11 +23,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tooltip.Tooltip;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
 
@@ -57,6 +60,16 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
         if (!pekerja_id.isEmpty()){
             startActivity(new Intent(LogMasuk.this, Dashboard.class));
             finish();
+        }
+
+        //Tooltip
+        if (sharedPreferences.getString("checkLog", "").isEmpty()){
+            showToolTipLogMasuk(0);
+
+            //Apply Editor
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("checkLog", "ada");
+            editor.apply();
         }
     }
 
@@ -159,5 +172,33 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void showToolTipLogMasuk(final int i){
+        Tooltip tooltip;
+        switch (i){
+            case 0:
+                tooltip = new Tooltip.Builder(findViewById(R.id.edtKataLaluan), R.style.Tooltip).setText("LOG MASUK MENGUNAKAN NO PEKERJA DAN KATALALUAN YANG DIBERIKAN SEWAKTU PENDAFTARAN").show();
+                break;
+            default:
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("checkInfo", "ada");
+                //editor.apply();
+                return;
+        }
+        Timer t = new Timer(false);
+        final Tooltip finalTooltip = tooltip;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        finalTooltip.dismiss();
+                        int j = i + 1;
+                        showToolTipLogMasuk(j);
+                    }
+                });
+            }
+        }, 4000);
     }
 }

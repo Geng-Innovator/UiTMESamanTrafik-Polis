@@ -23,7 +23,7 @@
                 android:id="@+id/maklum_laporan_img"/>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/txtSentuh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"

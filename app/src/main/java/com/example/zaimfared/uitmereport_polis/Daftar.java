@@ -20,11 +20,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tooltip.Tooltip;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Daftar extends AppCompatActivity implements View.OnClickListener{
 
@@ -42,6 +45,17 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
         edtKataLaluan2 = findViewById(R.id.edtKataLaluanBaru2);
 
         sharedPreferences = getSharedPreferences(LogMasuk.pekerjaPrefs, Context.MODE_PRIVATE);
+
+        //Tooltip
+        if (sharedPreferences.getString("checkDaftar", "").isEmpty()){
+            showToolTipDaftar(0);
+
+            //Apply Editor
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("checkDaftar", "ada");
+            editor.apply();
+        }
+
     }
 
     public boolean validatePssword(){
@@ -159,5 +173,33 @@ public class Daftar extends AppCompatActivity implements View.OnClickListener{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void showToolTipDaftar(final int i){
+        Tooltip tooltip;
+        switch (i){
+            case 0:
+                tooltip = new Tooltip.Builder(findViewById(R.id.edtKataLaluanBaru2), R.style.Tooltip).setText("TUKAR KATALALUAN BARU").show();
+                break;
+            default:
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("checkInfo", "ada");
+                //editor.apply();
+                return;
+        }
+        Timer t = new Timer(false);
+        final Tooltip finalTooltip = tooltip;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        finalTooltip.dismiss();
+                        int j = i + 1;
+                        showToolTipDaftar(j);
+                    }
+                });
+            }
+        }, 4000);
     }
 }

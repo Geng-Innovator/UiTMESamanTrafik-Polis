@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.tooltip.Tooltip;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +33,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,13 +43,14 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     private String pekerja_id;
     private LaporanAdapter laporanAdapter;
     private List<Laporan> laporanList = new ArrayList<>();
+    private static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Dashboard.pekerjaPrefs, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(Dashboard.pekerjaPrefs, Context.MODE_PRIVATE);
         pekerja_id = sharedPreferences.getString(id, "");
 
         RecyclerView recyclerView = findViewById(R.id.rcyLaporan);
@@ -56,6 +60,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(laporanAdapter);
         prepareLaporan();
+
     }
 
     private void prepareLaporan(){
@@ -84,6 +89,15 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                             laporan.setLaporan_status(o.getString("laporan_status"));
                             laporanList.add(laporan);
                             laporanAdapter.notifyDataSetChanged();
+
+                            if (sharedPreferences.getString("checkDashboard", "").isEmpty()){
+                                showToolTipDashboard(0);
+
+                                //Apply Editor
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("checkDashboard", "ada");
+                                editor.apply();
+                            }
                         }
                     }else{
                         AlertDialog alertDialog = new AlertDialog.Builder(Dashboard.this)
@@ -129,5 +143,36 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
                 startActivity(new Intent(this, Profil.class));
                 break;
         }
+    }
+
+    public void showToolTipDashboard(final int i){
+        Tooltip tooltip;
+        switch (i){
+            case 0:
+                tooltip = new Tooltip.Builder(findViewById(R.id.rcyLaporan), R.style.Tooltip).setText("DI SINI MERUPAKAN SENARAI LAPORAN YANG TELAH DIAGIHKAN OLEH ADMIN").show();
+                break;
+            case 1:
+                tooltip = new Tooltip.Builder(findViewById(R.id.imgLaporan), R.style.Tooltip).setText("SETIAP LAPORAN AKAN MENUNJUKKAN NAMA TEMPAT LAPORAN ITU DILAPORKAN TARIKH DAN MASA LAPORAN SERTA STATUS LAPORAN TERSEBUT").show();
+                break;
+            default:
+                //SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putString("checkInfo", "ada");
+                //editor.apply();
+                return;
+        }
+        Timer t = new Timer(false);
+        final Tooltip finalTooltip = tooltip;
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        finalTooltip.dismiss();
+                        int j = i + 1;
+                        showToolTipDashboard(j);
+                    }
+                });
+            }
+        }, 4000);
     }
 }
