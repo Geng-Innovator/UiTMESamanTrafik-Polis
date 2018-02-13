@@ -670,8 +670,8 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                     if (status.equalsIgnoreCase("dijadualkan")) {
                         rootView = inflater.inflate(R.layout.fragment_maklum_balas, container, false);
                         maklumBalas(rootView);
-                        pageView2.findViewById(R.id.txtSentuh).setVisibility(View.INVISIBLE);
                         pageView2 = rootView;
+                        pageView2.findViewById(R.id.txtSentuh).setVisibility(View.VISIBLE);
                         pageNumber = 2;
                     }else{
                         rootView = inflater.inflate(R.layout.fragment_view_laporan, container, false);
