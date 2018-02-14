@@ -38,6 +38,7 @@ import java.util.TimerTask;
 
 public class Dashboard extends AppCompatActivity implements View.OnClickListener {
 
+    //no
     public static final String id = "ID";
     public static final String pekerjaPrefs = "pekerjaPref";
     private String pekerja_id;
