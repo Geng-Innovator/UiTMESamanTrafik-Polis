@@ -141,7 +141,6 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                                 editor.putString("checkMaklum", "ada");
                                 editor.apply();
                             }
-
                         }else{
                             if (sharedPreferences.getString("checkView", "").isEmpty()){
                                 showToolTipViewMaklumBalas(0, pageView3, fragmentActivity);
