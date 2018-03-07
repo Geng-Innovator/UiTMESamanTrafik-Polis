@@ -181,9 +181,9 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
                 tooltip = new Tooltip.Builder(findViewById(R.id.edtKataLaluan), R.style.Tooltip).setText("LOG MASUK MENGUNAKAN NO PEKERJA DAN KATALALUAN YANG DIBERIKAN SEWAKTU PENDAFTARAN").show();
                 break;
             default:
-                //SharedPreferences.Editor editor = sharedPreferences.edit();
-                //editor.putString("checkInfo", "ada");
-                //editor.apply();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("checkInfo", "ada");
+                editor.apply();
                 return;
         }
         Timer t = new Timer(false);

@@ -18,28 +18,41 @@
             android:id="@+id/info_laporan_img"/>
 
         <LinearLayout
-            android:layout_margin="10dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:text="Status : "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorSecondary"
-                android:textStyle="bold"
-                android:textSize="15pt"/>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/info_laporan_status"
-                android:padding="10dp"
-                android:textStyle="bold"
-                android:textSize="10pt"
-                android:background="@drawable/statuslaporan_dilaporkan"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:text="Status : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorSecondary"
+                    android:textStyle="bold"
+                    android:textSize="15pt"/>
+
+                <TextView
+                    android:id="@+id/info_laporan_status"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    android:textSize="10pt"
+                    android:background="@drawable/statuslaporan_dilaporkan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"/>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgSlideRight"
+                android:src="@drawable/ic_chevron_right_black_24dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorWhite"/>
+                android:layout_width="wrap_content"/>
         </LinearLayout>
 
         <LinearLayout

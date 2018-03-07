@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -38,6 +39,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -158,32 +161,7 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         sharedPreferences = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
     }
 
-    @TargetApi(Build.VERSION_CODES.CUPCAKE)
-    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
+    //This view will be preview when the status is equal to 'dijadualkan'
     private void prepareMaklumBalas (){
         spnFakulti = new ArrayList<>();
         spnTindakan = new ArrayList<>();
@@ -329,14 +307,34 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                         /***************** Part untuk view laporan *********/
                         if (!status.equalsIgnoreCase("dijadualkan")) {
                             new DownloadImageTask((ImageView) vl.findViewById(R.id.viewLaporanImage)).execute(data.getString("polis_imej"));
+
                             ((TextView)vl.findViewById(R.id.viewLaporanPolisId)).setText(data.getString("polis_id"));
                             ((TextView)vl.findViewById(R.id.viewLaporanPolisPenerangan)).setText(data.getString("polis_penerangan"));
+                            TableLayout tblKesalahan = (TableLayout)vl.findViewById(R.id.viewTableKesalahan);
                             JSONArray kList = data.getJSONArray("kesalahan_list");
                             String kesalahan = "";
                             for (int k=0; k<kList.length(); k++){
-                                kesalahan = kesalahan + (k+1) + ". " + kList.getString(k) + System.lineSeparator();
+                                //kesalahan = kesalahan + (k+1) + ". " + kList.getString(k) + System.lineSeparator();
+                                TableRow row= new TableRow(context);
+                                TableLayout.LayoutParams lp = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+                                row.setLayoutParams(lp);
+                                TextView txt = new TextView(context);
+                                txt.setText("" + (k+1) + ". ");
+                                TextView txt2 = new TextView(context);
+                                txt2.setText(kList.getString(k));
+                                txt.setTextSize(20);
+                                txt.setTypeface(null, Typeface.BOLD);
+                                txt.setTextColor(context.getResources().getColor(R.color.colorSecondary));
+                                txt2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT));
+                                txt2.setTextSize(20);
+                                txt2.setTypeface(null, Typeface.BOLD);
+                                txt2.setTextColor(context.getResources().getColor(R.color.colorSecondary));
+                                txt2.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, 1));
+                                row.addView(txt);
+                                row.addView(txt2);
+                                tblKesalahan.addView(row);
                             }
-                            ((TextView)vl.findViewById(R.id.viewLaporanPolisKesalahan)).setText(kesalahan);
+                            //((TextView)vl.findViewById(R.id.viewLaporanPolisKesalahan)).setText(kesalahan);
                         }
                     }else{
                         AlertDialog alertDialog = new AlertDialog.Builder(context)
@@ -375,6 +373,8 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         pDialog.show();
     }
 
+
+    //Initialize variables untuk preview maklum balas
     private static void maklumBalas(final View v){
         //Declare
         spinnerTindakan = v.findViewById(R.id.maklum_laporan_tindakan_spinner);
@@ -686,6 +686,31 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
+    private static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 
     public static void showToolTipPengadu(final int i, final View v, final FragmentActivity activity){
         Tooltip tooltip;
@@ -698,6 +723,9 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
                 break;
             case 2:
                 tooltip = new Tooltip.Builder(v.findViewById(R.id.info_laporan_no_kenderaan), R.style.Tooltip).setText("INFO LAPORAN YANG DISERTAKAN OLEH STAF").show();
+                break;
+            case 3:
+                tooltip = new Tooltip.Builder(v.findViewById(R.id.imgSlideRight), R.style.Tooltip).setText("SELAK KE KANAN UNTUK ISI BORANG MAKLUM BALAS").show();
                 break;
             default:
                 //SharedPreferences.Editor editor = sharedPreferences.edit();

@@ -68,6 +68,13 @@
                 android:layout_height="wrap_content"
                 android:textSize="10pt"
                 android:textColor="@color/colorSecondary"/>
+
+            <TableLayout
+                android:id="@+id/viewTableKesalahan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </TableLayout>
             <TextView
                 android:id="@+id/viewLaporanPolisKesalahan"
                 android:layout_width="match_parent"

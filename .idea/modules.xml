@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/UiTMEReport-Polis.iml" filepath="$PROJECT_DIR$/UiTMEReport-Polis.iml" />
+      <module fileurl="file://E:\Project Android\Polis2\UiTMEReport-Polis\UiTMEReport-Polis.iml" filepath="E:\Project Android\Polis2\UiTMEReport-Polis\UiTMEReport-Polis.iml" />
       <module fileurl="file://C:\Users\Seladang Hijau\Desktop\UiTMEReport-Polis\.idea\UiTMEReport-Polis.iml" filepath="C:\Users\Seladang Hijau\Desktop\UiTMEReport-Polis\.idea\UiTMEReport-Polis.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
