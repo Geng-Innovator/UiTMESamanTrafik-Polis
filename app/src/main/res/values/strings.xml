@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UiTM E-Saman Trafik</string>
+    <string name="app_name">UeST - Polis</string>
 
     <!-- GET url -->
     <string name="url_form_maklum_balas">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/form/laporan/maklum-balas</string>

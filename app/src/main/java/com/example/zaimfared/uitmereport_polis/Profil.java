@@ -128,8 +128,8 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.btnLogOut:
                 //Clear shared preferences
-               // SharedPreferences settings = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
-               // settings.edit().clear().apply();
+                SharedPreferences settings = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
+                settings.edit().clear().apply();
 
                 AlertDialog alertDialog = new AlertDialog.Builder(Profil.this)
                         .setMessage("Anda pasti ingin log keluar?")
