@@ -143,6 +143,9 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
             case R.id.btnProfil:
                 startActivity(new Intent(this, Profil.class));
                 break;
+            case R.id.btnLapor:
+                startActivity(new Intent(this, LaporanBaru.class));
+                break;
         }
     }
 

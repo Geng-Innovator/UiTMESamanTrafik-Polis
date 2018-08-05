@@ -28,10 +28,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:paddingTop="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/colorSecondary"
                 android:text="Sentuh untuk ambil gambar"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold" />
         </FrameLayout>
 
         <LinearLayout
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/maklum_laporan_nama_pelajar"
-            android:inputType="textMultiLine"
+            android:inputType="textCapCharacters"
             android:hint="Nama Pelajar"
             android:padding="10dp"
             android:textColorHint="@color/colorSecondary"

@@ -42,8 +42,6 @@ public class KesalahanAdapter extends RecyclerView.Adapter<KesalahanAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.txtKesalahan.setText(list.get(position));
         holder.checkBox.setChecked(false);
-
-
     }
 
     @Override

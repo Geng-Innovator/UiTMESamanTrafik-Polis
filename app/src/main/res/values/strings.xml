@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">UeST - Polis</string>
+    <string name="app_name">UeTS - Polis</string>
 
     <!-- GET url -->
     <string name="url_form_maklum_balas">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/form/laporan/maklum-balas</string>
+    <string name="url_form_hantar_laporan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/form/laporan/hantar-laporan</string>
+    <string name="url_kenderaan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/staf/form/laporan/hantar-laporan</string>
 
     <!-- POST url -->
     <string name="url_log_masuk">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/log-masuk</string>

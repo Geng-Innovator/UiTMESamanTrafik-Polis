@@ -57,7 +57,7 @@ public class LogMasuk extends AppCompatActivity implements View.OnClickListener{
         sharedPreferences = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
 
         String pekerja_id = sharedPreferences.getString(id, "");
-        if (!pekerja_id.isEmpty()){
+        if (!pekerja_id.isEmpty() && !pekerja_id.equals("null")){
             startActivity(new Intent(LogMasuk.this, Dashboard.class));
             finish();
         }

@@ -19,12 +19,21 @@
         android:layout_marginBottom="20dp"/>
 
     <Button
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:onClick="onClick"
         android:id="@+id/btnProfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PROFIL"
+        android:background="@drawable/bg_button"
+        android:textColor="@color/colorPrimary"/>
+    <Button
+        android:layout_margin="5dp"
+        android:onClick="onClick"
+        android:id="@+id/btnLapor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LAPORAN BARU"
         android:background="@drawable/bg_button"
         android:textColor="@color/colorPrimary"/>
 

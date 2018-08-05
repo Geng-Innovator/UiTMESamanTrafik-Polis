@@ -111,14 +111,12 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         context = this;
         laporan = getIntent().getStringExtra("id");
         status = getIntent().getStringExtra("status");
-        if (status.equalsIgnoreCase("dijadualkan")) {
+        if (status.equalsIgnoreCase("dijadualkan"))
             prepareMaklumBalas();
-        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        // Create the adapter that will return a fragment for each of the three primary sections of the activity.
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.

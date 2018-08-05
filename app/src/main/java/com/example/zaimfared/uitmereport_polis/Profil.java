@@ -38,7 +38,6 @@ public class Profil extends AppCompatActivity implements View.OnClickListener {
     private String pekerjaPrefs = "pekerjaPref";
     private String id = "ID";
     private String pekerja_id;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

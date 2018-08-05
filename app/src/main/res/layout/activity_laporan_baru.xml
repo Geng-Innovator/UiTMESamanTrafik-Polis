@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".LaporanBaru">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:onClick="onClick"
+                android:id="@+id/ivGambarLaporan"
+                android:contentDescription="info img laporan"
+                android:layout_width="match_parent"
+                android:layout_height="240dp" />
+
+            <TextView
+                android:id="@+id/txtSentuh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingTop="30dp"
+                android:text="Sentuh untuk ambil gambar"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:hint="Tempat"
+                android:id="@+id/etTempat"
+                android:background="@drawable/bg_edittext"
+                android:textColorHint="@color/colorSecondary"
+                android:inputType="textCapCharacters"
+                android:padding="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:hint="No. Kenderaan"
+                android:id="@+id/etNoKenderaan"
+                android:background="@drawable/bg_edittext"
+                android:textColorHint="@color/colorSecondary"
+                android:inputType="textCapCharacters"
+                android:padding="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:hint="No. Siri Pelekat"
+                android:id="@+id/etNoSiriPelekat"
+                android:background="@drawable/bg_edittext"
+                android:textColorHint="@color/colorSecondary"
+                android:inputType="textCapCharacters"
+                android:padding="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:paddingStart="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Jenis Kenderaan : "
+                    android:textColor="@color/colorSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spnJenisKenderaan"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorSecondary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@color/colorSecondary" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:hint="No. Pelajar"
+                android:id="@+id/etNoPelajar"
+                android:background="@drawable/bg_edittext"
+                android:textColorHint="@color/colorSecondary"
+                android:inputType="numberDecimal"
+                android:padding="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:hint="Nama Pelajar"
+                android:id="@+id/etNamaPelajar"
+                android:background="@drawable/bg_edittext"
+                android:textColorHint="@color/colorSecondary"
+                android:inputType="textCapCharacters"
+                android:padding="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Kursus : "
+                    android:paddingStart="10dp"
+                    android:textColor="@color/colorSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spnKursus"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorSecondary"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:paddingStart="10dp"
+                    android:text="Kolej : "
+                    android:textColor="@color/colorSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spnKolej"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorSecondary" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:paddingStart="10dp"
+                    android:text="Fakulti : "
+                    android:textColor="@color/colorSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spnFakulti"
+                    android:background="@color/colorSecondary"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:background="@color/colorSecondary" />
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:paddingStart="10dp"
+                android:text="Kesalahan"
+                android:textSize="10pt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondary" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvSenaraiKesalahan"
+                android:onClick="onClick"
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"/>
+            <LinearLayout
+                android:paddingStart="10dp"
+                android:layout_margin="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="Tindakan :"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="10pt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/spnTindakan"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorSecondary" />
+            </LinearLayout>
+            <EditText
+                android:layout_margin="2dp"
+                android:hint="Penerangan"
+                android:id="@+id/etPenerangan"
+                android:background="@drawable/bg_edittext"
+                android:textColorHint="@color/colorSecondary"
+                android:inputType="textMultiLine"
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:text="Lapor"
+                android:id="@+id/btnLapor"
+                android:layout_margin="3dp"
+                android:background="@drawable/bg_button"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick" />
+            <Button
+                android:text="Kembali"
+                android:id="@+id/btnKembali"
+                android:layout_margin="3dp"
+                android:background="@drawable/bg_button"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
