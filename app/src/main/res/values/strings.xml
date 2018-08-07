@@ -12,6 +12,7 @@
     <string name="url_dashboard">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/dashboard</string>
     <string name="url_info_laporan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/laporan/info</string>
     <string name="url_maklum_balas">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/laporan/maklum-balas</string>
+    <string name="url_hantar_laporan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/laporan/hantar-laporan</string>
     <string name="url_profile">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/profil</string>
 
     <string name="title_activity_info_laporan_2">Info_laporan</string>

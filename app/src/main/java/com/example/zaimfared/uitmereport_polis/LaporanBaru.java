@@ -1,5 +1,11 @@
 package com.example.zaimfared.uitmereport_polis;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -8,11 +14,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,20 +33,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static com.example.zaimfared.uitmereport_polis.InfoLaporan.encodeToBase64;
 
 public class LaporanBaru extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String id = "ID";
+    public static final String pekerjaPrefs = "pekerjaPref";
+
     ImageView ivGambarLaporan;
     EditText etTempat, etNoKenderaan, etNoSiriPelekat, etNoPelajar, etNamaPelajar, etPenerangan;
-    Spinner spnJenisKenderaan, spnKursus, spnKolej, spnFakulti;
+    Spinner spnJenisKenderaan, spnStatusKenderaan, spnKursus, spnKolej, spnFakulti;
     RecyclerView rvSenaraiKesalahan;
 
+    String polis_id, polis_imej;
+    SharedPreferences sharedPreferences;
+    List<LookUp> kesalahanList, kenderaanList, kenderaanStatusList, kursusList, kolejList, fakultiList;
+    ArrayList<String> senaraiJenisKesalahan, senaraiJenisKenderaan, senaraiStatusKenderaan, senaraiKursus, senaraiKolej, senaraiFakulti;
+    ArrayAdapter<String> kenderaanAdapter, statusKenderaanAdapter, kursusAdapter, kolejAdapter, fakultiAdapter;
+    ArrayList<Long> kesalahanIndexList;
     KesalahanAdapter kesalahanAdapter;
-
-    List<LookUp> kesalahanList, kenderaanList, kursusList, kolejList, fakultiList;
-    ArrayList<String> senaraiJenisKesalahan, senaraiJenisKenderaan, senaraiKursus, senaraiKolej, senaraiFakulti;
-    ArrayAdapter<String> kenderaanAdapter, kursusAdapter, kolejAdapter, fakultiAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +71,22 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.ivGambarLaporan:
+                captureImage();
                 break;
             case R.id.rvSenaraiKesalahan:
                 break;
             case R.id.btnLapor:
-                hantarLaporan();
+                if(polis_imej != null) {
+                    for (int i=0 ; i<kesalahanList.size() ; i++){
+                        View row = rvSenaraiKesalahan.getLayoutManager().findViewByPosition(i);
+                        CheckBox chkBox = row.findViewById(R.id.chkBoxRowKesalahan);
+                        if (chkBox.isChecked())
+                            kesalahanIndexList.add(kesalahanList.get(i).getId());
+                    }
+
+                    hantarLaporan();
+                } else
+                    Toast.makeText(this, "Sila tangkap gambar dahulu.", Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnKembali:
                 finish();
@@ -64,12 +94,37 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
         }
     }
 
+    public void captureImage(){
+        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(i, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            if (data.getExtras() != null){
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                polis_imej = encodeToBase64(bitmap);
+                ivGambarLaporan.setImageBitmap(bitmap);
+                findViewById(R.id.txtSentuh).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
     private void initialize() {
+        kesalahanIndexList = new ArrayList<>();
+
         senaraiJenisKesalahan = new ArrayList<>();
         senaraiJenisKenderaan = new ArrayList<>();
+        senaraiStatusKenderaan = new ArrayList<>();
         senaraiKursus = new ArrayList<>();
         senaraiKolej = new ArrayList<>();
         senaraiFakulti = new ArrayList<>();
+
+        sharedPreferences = getSharedPreferences(pekerjaPrefs, Context.MODE_PRIVATE);
+        polis_id = sharedPreferences.getString(id, "");
 
         ivGambarLaporan = findViewById(R.id.ivGambarLaporan);
         etTempat = findViewById(R.id.etTempat);
@@ -79,6 +134,7 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
         etNamaPelajar = findViewById(R.id.etNamaPelajar);
         etPenerangan = findViewById(R.id.etPenerangan);
         spnJenisKenderaan = findViewById(R.id.spnJenisKenderaan);
+        spnStatusKenderaan = findViewById(R.id.spnStatusKenderaan);
         spnKursus = findViewById(R.id.spnKursus);
         spnKolej = findViewById(R.id.spnKolej);
         spnFakulti = findViewById(R.id.spnFakulti);
@@ -90,14 +146,16 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
 
         kesalahanAdapter = new KesalahanAdapter(senaraiJenisKesalahan);
         kenderaanAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, senaraiJenisKenderaan);
+        statusKenderaanAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, senaraiStatusKenderaan);
         kursusAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, senaraiKursus);
         kolejAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, senaraiKolej);
         fakultiAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, senaraiFakulti);
 
         prepareForm();
 
-        spnJenisKenderaan.setAdapter(kenderaanAdapter);
         rvSenaraiKesalahan.setAdapter(kesalahanAdapter);
+        spnJenisKenderaan.setAdapter(kenderaanAdapter);
+        spnStatusKenderaan.setAdapter(statusKenderaanAdapter);
         spnKursus.setAdapter(kursusAdapter);
         spnKolej.setAdapter(kolejAdapter);
         spnFakulti.setAdapter(fakultiAdapter);
@@ -105,6 +163,7 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
 
     private void prepareForm (){
         kenderaanList = new ArrayList<>();
+        kenderaanStatusList = new ArrayList<>();
         kesalahanList = new ArrayList<>();
         kursusList = new ArrayList<>();
         kolejList = new ArrayList<>();
@@ -129,6 +188,14 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
                             LookUp lookup = new LookUp(temp.getInt("id"), temp.getString("nama"));
 
                             kenderaanList.add(lookup);
+                        }
+
+                        JSONArray statusKenderaan = data.getJSONArray("statusKenderaanList");
+                        for(int i=0 ; i<statusKenderaan.length() ; i++) {
+                            JSONObject temp = statusKenderaan.getJSONObject(i);
+                            LookUp lookup = new LookUp(temp.getInt("id"), temp.getString("nama"));
+
+                            kenderaanStatusList.add(lookup);
                         }
 
                         JSONArray jenisKesalahan = data.getJSONArray("jenisKesalahanList");
@@ -165,6 +232,8 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
 
                         for (LookUp temp : kenderaanList)
                             senaraiJenisKenderaan.add(temp.getName());
+                        for (LookUp temp : kenderaanStatusList)
+                            senaraiStatusKenderaan.add(temp.getName());
                         for (LookUp temp : kesalahanList)
                             senaraiJenisKesalahan.add(temp.getName());
                         for (LookUp temp : kursusList)
@@ -175,6 +244,7 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
                             senaraiFakulti.add(temp.getName());
 
                         kenderaanAdapter.notifyDataSetChanged();
+                        statusKenderaanAdapter.notifyDataSetChanged();
                         kesalahanAdapter.notifyDataSetChanged();
                         kursusAdapter.notifyDataSetChanged();
                         kolejAdapter.notifyDataSetChanged();
@@ -193,6 +263,42 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
     }
 
     private void hantarLaporan() {
+        String url = getResources().getString(R.string.url_hantar_laporan);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest hantarLaporan = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(LaporanBaru.this, "Laporan telah dihantar", Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(LaporanBaru.this, "Terdapat masalah", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
 
+                params.put("polis_id", polis_id);
+                params.put("polis_imej", polis_imej);
+                params.put("polis_penerangan", etPenerangan.getText().toString().trim());
+                params.put("laporan_tempat", etTempat.getText().toString().trim());
+                params.put("kenderaan_no_siri_pelekat", etNoSiriPelekat.getText().toString().trim());
+                params.put("kenderaan_no", etNoKenderaan.getText().toString().trim());
+                params.put("kenderaan_jenis", "" + kenderaanList.get(spnJenisKenderaan.getSelectedItemPosition()).getId());
+                params.put("kenderaan_status", "" + kenderaanStatusList.get(spnStatusKenderaan.getSelectedItemPosition()).getId());
+                params.put("pelajar_no", etNoPelajar.getText().toString().trim());
+                params.put("pelajar_nama", etNamaPelajar.getText().toString().trim());
+                params.put("pelajar_kursus", "" + kursusList.get(spnKursus.getSelectedItemPosition()).getId());
+                params.put("pelajar_kolej", "" + kolejList.get(spnKolej.getSelectedItemPosition()).getId());
+                params.put("pelajar_fakulti", "" + fakultiList.get(spnFakulti.getSelectedItemPosition()).getId());
+                params.put("kesalahan_list", new JSONArray(kesalahanIndexList).toString());
+
+                return params;
+            }
+        };
+
+        requestQueue.add(hantarLaporan);
     }
 }
