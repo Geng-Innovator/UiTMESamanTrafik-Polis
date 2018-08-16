@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -452,27 +453,34 @@ public class InfoLaporan extends AppCompatActivity implements View.OnClickListen
         StringRequest maklumRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try {
-                    //Get the JSON object from the server, Response will return status and data
+                try{
+                    //Get the JSON object from the server
                     JSONObject obj = new JSONObject(response);
+
                     //Get status from the server. 0 - Failed, 1 - Success
-
-                    if (obj.getString("status").equalsIgnoreCase("1")) {
-                        JSONObject data = obj.getJSONObject("data");
-
+                    if (obj.getString("status").equalsIgnoreCase("1")){
+                        //Redirect to dashboard after laporan success
                         AlertDialog alertDialog = new AlertDialog.Builder(context)
-                                .setMessage("Laporan telah berjaya dimuat naik")
-                                .create();
+                                .setMessage("Laporan anda telah dimuat naik.")
+                                .setCancelable(false)
+                                .setPositiveButton("TERUSKAN", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent newIntent = new Intent(context, Dashboard.class);
+                                        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        context.startActivity(newIntent);
+                                    }
+                                }).create();
                         alertDialog.show();
-
-                        info.finish();
                     }else{
+                        //Try again
                         AlertDialog alertDialog = new AlertDialog.Builder(context)
-                                .setMessage("Laporan tidak dijumpai 2")
+                                .setMessage("Gagal melapor")
                                 .create();
                         alertDialog.show();
                     }
-                } catch (JSONException e) { e.printStackTrace(); }
+
+                }catch (Exception e){ e.printStackTrace(); }
 
                 if(progressDialog.isShowing())
                     progressDialog.dismiss();

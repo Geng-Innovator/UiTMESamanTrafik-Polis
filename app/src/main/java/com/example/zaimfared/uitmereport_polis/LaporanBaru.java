@@ -1,6 +1,9 @@
 package com.example.zaimfared.uitmereport_polis;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -263,18 +266,49 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
     }
 
     private void hantarLaporan() {
+        final ProgressDialog pDialog = new ProgressDialog(LaporanBaru.this);
         String url = getResources().getString(R.string.url_hantar_laporan);
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest hantarLaporan = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(LaporanBaru.this, "Laporan telah dihantar", Toast.LENGTH_LONG).show();
+                try{
+                    //Get the JSON object from the server
+                    JSONObject obj = new JSONObject(response);
+
+                    //Get status from the server. 0 - Failed, 1 - Success
+                    if (obj.getString("status").equalsIgnoreCase("1")){
+                        //Redirect to dashboard after laporan success
+                        AlertDialog alertDialog = new AlertDialog.Builder(LaporanBaru.this)
+                                .setMessage("Laporan anda telah dimuat naik.")
+                                .setCancelable(false)
+                                .setPositiveButton("TERUSKAN", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent newIntent = new Intent(LaporanBaru.this, Dashboard.class);
+                                        newIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(newIntent);
+                                    }
+                                }).create();
+                        alertDialog.show();
+                    }else{
+                        //Try again
+                        AlertDialog alertDialog = new AlertDialog.Builder(LaporanBaru.this)
+                                .setMessage("Gagal melapor")
+                                .create();
+                        alertDialog.show();
+                    }
+
+                }catch (Exception e){ e.printStackTrace(); }
+
+                if(pDialog.isShowing())
+                    pDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(LaporanBaru.this, "Terdapat masalah", Toast.LENGTH_SHORT).show();
-            }
+;            }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -300,5 +334,7 @@ public class LaporanBaru extends AppCompatActivity implements View.OnClickListen
         };
 
         requestQueue.add(hantarLaporan);
+        pDialog.setMessage("Sedang memuat turun data...");
+        pDialog.show();
     }
 }
