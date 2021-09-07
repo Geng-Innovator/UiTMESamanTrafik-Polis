@@ -2,18 +2,18 @@
     <string name="app_name">UeTS - Polis</string>
 
     <!-- GET url -->
-    <string name="url_form_maklum_balas">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/form/laporan/maklum-balas</string>
-    <string name="url_form_hantar_laporan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/form/laporan/hantar-laporan</string>
-    <string name="url_kenderaan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/staf/form/laporan/hantar-laporan</string>
+    <string name="url_form_maklum_balas">{{baseUrl}}/polis/form/laporan/maklum-balas</string>
+    <string name="url_form_hantar_laporan">{{baseUrl}}/polis/form/laporan/hantar-laporan</string>
+    <string name="url_kenderaan">{{baseUrl}}/staf/form/laporan/hantar-laporan</string>
 
     <!-- POST url -->
-    <string name="url_log_masuk">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/log-masuk</string>
-    <string name="url_reset_password">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/reset-password</string>
-    <string name="url_dashboard">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/dashboard</string>
-    <string name="url_info_laporan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/laporan/info</string>
-    <string name="url_maklum_balas">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/laporan/maklum-balas</string>
-    <string name="url_hantar_laporan">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/laporan/hantar-laporan</string>
-    <string name="url_profile">http://beta.seladanghijau.com/uitm_e_saman_trafik/public/polis/profil</string>
+    <string name="url_log_masuk">{{baseUrl}}/polis/log-masuk</string>
+    <string name="url_reset_password">{{baseUrl}}/polis/reset-password</string>
+    <string name="url_dashboard">{{baseUrl}}/polis/dashboard</string>
+    <string name="url_info_laporan">{{baseUrl}}/polis/laporan/info</string>
+    <string name="url_maklum_balas">{{baseUrl}}/polis/laporan/maklum-balas</string>
+    <string name="url_hantar_laporan">{{baseUrl}}/polis/laporan/hantar-laporan</string>
+    <string name="url_profile">{{baseUrl}}/polis/profil</string>
 
     <string name="title_activity_info_laporan_2">Info_laporan</string>
     <string name="action_settings">Settings</string>

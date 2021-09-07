@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UiTMEReport-Polis.iml" filepath="$PROJECT_DIR$/UiTMEReport-Polis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/UiTMESamanTrafik-Polis.iml" filepath="$PROJECT_DIR$/.idea/UiTMESamanTrafik-Polis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/UiTMESamanTrafik-Polis.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/UiTMESamanTrafik-Polis.app.iml" />
     </modules>
   </component>
 </project>
